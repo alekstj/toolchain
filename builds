@@ -1,0 +1,92 @@
+#!/bin/bash
+#
+
+set -e
+
+msg(){
+	printf " :: $1 \n"
+}
+
+err(){
+	printf " :: ERROR: $1 \n"
+}
+
+check(){
+	if [ ! -f "${CONFILE}" ]; then
+		err "File '${CONFILE}', not found."
+		exit 1
+	else
+		. ${CONFILE}
+	fi
+}
+
+clean(){
+	for dir in ${DESTDIR} ${BUILD_DIR} ; do
+		msg "Remove: $dir"
+		rm -rf $dir
+		sync
+	done
+	exit 0
+}
+
+parser(){
+	case "$1" in
+		-c|--clean)
+			clean ;;
+	esac
+}
+
+main(){
+	check "$@"
+
+	parser "$@"
+
+	msg "Target: ${TARGET}"
+	msg "CPU: ${CPU}"
+	msg "Triplet: ${TARGET_TRIP}"
+	printf " \n"
+	install -dm755 ${NATIVE_PREFIX} ${CROSS_PREFIX}
+
+	# loop
+	for sc in ${SC_DIR}/* ; do
+		msg "Build: $sc"
+		. $sc
+
+		tarball=`find ${SRC_DIR}/ -name $name-*`
+		if [ "$tarball" = "" ]; then
+			err "Sources '$name', not found."
+			exit 1
+		fi
+
+		install -dm755 ${BUILD_DIR}
+		pushd ${BUILD_DIR} >/dev/null
+			msg "Unpack sources: $tarball"
+			tar -xf $tarball || exit 1
+			sync
+			(set -ex ; build )
+			sync
+		popd >/dev/null
+
+		if [ "$?" = 0 ]; then
+			msg "Build: $sc - ok!"
+			rm -rf $BUILD_DIR
+		fi
+	done
+
+	if [ "$?" = 0 ]; then
+		msg "Done - ${DESTDIR}"
+		exit 0
+	else
+		err "Build, some errors"
+		exit 1
+	fi
+}
+
+CWD="${PWD}"
+BUILD_DIR="${CWD}/build_dir"
+SRC_DIR="${CWD}/sources"
+SC_DIR="${CWD}/scripts"
+CONFILE="${CWD}/config"
+
+
+main "$@"

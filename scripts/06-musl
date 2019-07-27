@@ -1,0 +1,15 @@
+name=musl
+version=1.1.23
+
+build(){
+	cd $name-$version
+
+	mkdir build && cd build
+	
+	CC=${TARGET_TRIP}-gcc CFLAGS=-Wa,-msoft-float \
+	../configure --prefix=${CROSS_PREFIX}/${TARGET_TRIP}/ \
+		--enable-optimize CROSS_COMPILE=${TARGET_TRIP}-
+
+	make -j$(nproc)
+	make install
+}

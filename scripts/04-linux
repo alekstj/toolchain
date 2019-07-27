@@ -1,0 +1,8 @@
+name=linux
+version=4.4.186
+
+build(){
+	cd $name-$version
+
+	make ARCH=${TARGET} INSTALL_HDR_PATH=${CROSS_PREFIX}/${TARGET_TRIP} headers_install
+}

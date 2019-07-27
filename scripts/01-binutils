@@ -1,0 +1,15 @@
+name=binutils
+version=2.32
+
+build(){
+	cd $name-$version
+
+	mkdir build && cd build
+
+	../configure --prefix="${NATIVE_PREFIX}" \
+		--disable-nls \
+		--disable-werror \
+		--disable-multilib
+	make -j$(nproc)
+	make install
+}
