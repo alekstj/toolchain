@@ -11,6 +11,16 @@ err(){
 	printf " :: ERROR: $1 \n"
 }
 
+print_help(){
+	cat << EOF
+Usage: `basename $0` [option]
+Options:
+	-a, --arch    change target
+	-c, --clean   clean
+	-h, --help    print this message
+EOF
+}
+
 check(){
 	if [ ! -f "${CONFILE}" ]; then
 		err "File '${CONFILE}', not found."
@@ -37,6 +47,9 @@ parser(){
 			-a|--arch)
 				arch=$2
 				shift ;;
+			-h|--help)
+				print_help
+				exit 0 ;;
 		esac
 		shift
 	done
@@ -52,8 +65,7 @@ main(){
 		msg "Load target: $arch"
 		. "${TARG_DIR}/$arch"
 	else
-		msg "Your target: $arch"
-		msg "Unsupported target."
+		err "Unsupported '$arch' target."
 		exit 1
 	fi
 
