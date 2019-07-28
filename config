@@ -1,9 +1,4 @@
 DESTDIR="${PWD}/rootdir"
 NATIVE_PREFIX="${DESTDIR}/opt/native"
 CROSS_PREFIX="${DESTDIR}/opt/cross"
-TARGET=x86_64
-CPU=x86-64
-ARCH=x86
-CLIB=musl
-TARGET_TRIP=${TARGET}-linux-${CLIB}
 

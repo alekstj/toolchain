@@ -30,16 +30,32 @@ clean(){
 }
 
 parser(){
-	case "$1" in
-		-c|--clean)
-			clean ;;
-	esac
+	while [ "$1" ]; do
+		case "$1" in
+			-c|--clean)
+				clean ;;
+			-a|--arch)
+				arch=$2
+				shift ;;
+		esac
+		shift
+	done
 }
 
 main(){
 	check "$@"
 
 	parser "$@"
+
+	# load target
+	if [ -f "${TARG_DIR}/$arch" ]; then
+		msg "Load target: $arch"
+		. "${TARG_DIR}/$arch"
+	else
+		msg "Your target: $arch"
+		msg "Unsupported target."
+		exit 1
+	fi
 
 	msg "Target: ${TARGET}"
 	msg "CPU: ${CPU}"
@@ -82,11 +98,14 @@ main(){
 	fi
 }
 
+arch="$(uname -m)"
+
 CWD="${PWD}"
 BUILD_DIR="${CWD}/build_dir"
 SRC_DIR="${CWD}/sources"
 SC_DIR="${CWD}/scripts"
 CONFILE="${CWD}/config"
+TARG_DIR="${CWD}/targets"
 
 
 main "$@"
