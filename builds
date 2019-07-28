@@ -18,6 +18,8 @@ Options:
 	-a, --arch    change target
 	-c, --clean   clean
 	-h, --help    print this message
+Support targets:
+	`cd $TARG_DIR; ls -m`
 EOF
 }
 
@@ -36,14 +38,14 @@ clean(){
 		rm -rf $dir
 		sync
 	done
-	exit 0
 }
 
 parser(){
 	while [ "$1" ]; do
 		case "$1" in
 			-c|--clean)
-				clean ;;
+				clean
+				exit 0 ;;
 			-a|--arch)
 				arch=$2
 				shift ;;
@@ -73,17 +75,22 @@ main(){
 	msg "CPU: ${CPU}"
 	msg "Triplet: ${TARGET_TRIP}"
 	printf " \n"
-	install -dm755 ${NATIVE_PREFIX} ${CROSS_PREFIX}
 
 	# loop
 	for sc in ${SC_DIR}/* ; do
-		msg "Build: $sc"
+		msg "Run recepi: $(echo $sc | sed -e "s|${SC_DIR}/||g")"
 		. $sc
 
 		tarball=`find ${SRC_DIR}/ -name $name-*`
 		if [ "$tarball" = "" ]; then
 			err "Sources '$name', not found."
 			exit 1
+		fi
+
+		if [ ! -d ${NATIVE_PREFIX} ]; then
+			install -dm755 ${NATIVE_PREFIX}
+		elif [ ! -d ${CROSS_PREFIX} ]; then
+			install -dm755 ${CROSS_PREFIX}
 		fi
 
 		install -dm755 ${BUILD_DIR}
