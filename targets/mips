@@ -1,5 +1,0 @@
-TARGET=mips
-CPU=mips
-ARCH=24kc
-CLIB=musl
-TARGET_TRIP=${TARGET}-${OSTYPE}-${CLIB}

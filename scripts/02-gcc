@@ -1,6 +1,8 @@
 name=gcc
 version=9.1.0
 
+msg "$name -> $NATIVE_PREFIX"
+
 build(){
 	cd $name-${version:0}
 

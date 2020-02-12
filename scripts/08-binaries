@@ -1,0 +1,11 @@
+msg "Copy binaries busybox to toolchain"
+
+build(){
+	install -Dm755 ${BIN_DIR}/busybox-${TARGET} ${DESTDIR}/bin/busybox
+	pushd ${DESTDIR}
+		mkdir -p sbin usr/bin usr/sbin
+		for l in $(./bin/busybox --list-full) ; do
+			ln -sf /bin/busybox $l
+		done
+	popd
+}

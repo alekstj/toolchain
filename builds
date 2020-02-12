@@ -76,6 +76,8 @@ main(){
 	msg "Triplet: ${TARGET_TRIP}"
 	printf " \n"
 
+	sleep 3s
+	
 	# loop
 	for sc in ${SC_DIR}/* ; do
 		msg "Run recepi: $(echo $sc | sed -e "s|${SC_DIR}/||g")"
@@ -125,6 +127,7 @@ SRC_DIR="${CWD}/sources"
 SC_DIR="${CWD}/scripts"
 CONFILE="${CWD}/config"
 TARG_DIR="${CWD}/targets"
+BIN_DIR="${CWD}/binary"
 
 
 main "$@"

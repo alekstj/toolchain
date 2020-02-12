@@ -1,4 +1,4 @@
 DESTDIR="${PWD}/rootdir"
-NATIVE_PREFIX="${DESTDIR}/opt/native"
-CROSS_PREFIX="${DESTDIR}/opt/cross"
+NATIVE_PREFIX="${DESTDIR}/native"
+CROSS_PREFIX="${DESTDIR}/cross"
 

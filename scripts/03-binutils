@@ -1,6 +1,8 @@
 name=binutils
 version=2.32
 
+msg "$name -> $CROSS_PREFIX"
+
 build(){
 	cd $name-$version
 

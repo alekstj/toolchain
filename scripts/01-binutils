@@ -1,5 +1,6 @@
 name=binutils
 version=2.32
+msg "$name -> $NATIVE_PREFIX"
 
 build(){
 	cd $name-$version

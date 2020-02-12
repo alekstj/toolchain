@@ -1,6 +1,8 @@
 name=linux
 version=4.4.186
 
+msg "$name -> $CROSS_PREFIX"
+
 build(){
 	cd $name-$version
 
