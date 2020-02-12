@@ -57,6 +57,15 @@ parser(){
 	done
 }
 
+pack(){
+	msg "Pack $DESTDIR -> $CWD/musl-toolchain-$arch.tar.xz archive."
+	cd $DESTDIR
+	sync
+	sudo chown -R root:root . || exit 1
+	sudo tar -cvf . - | xz -9 -c > $CWD/musl-toolchain-$arch.tar.xz
+	sync
+}
+
 main(){
 	check "$@"
 
@@ -111,6 +120,7 @@ main(){
 	done
 
 	if [ "$?" = 0 ]; then
+		pack "$@"
 		msg "Done - ${DESTDIR}"
 		exit 0
 	else
