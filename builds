@@ -38,6 +38,7 @@ clean(){
 		rm -rf $dir
 		sync
 	done
+	rm -rf ${TMP_DIR}
 }
 
 parser(){
@@ -82,6 +83,8 @@ main(){
 	local JOBS=$(expr `nproc` + 1)
 	export MAKEFLAGS="-j${JOBS}"
 
+	install -dm755 ${TMP_DIR}
+
 	msg "Target:    ${TARGET}"
 	msg "CPU:       ${CPU}"
 	msg "Triplet:   ${TARGET_TRIP}"
@@ -117,14 +120,17 @@ main(){
 			unset MAKEFLAGS
 		popd >/dev/null
 
+		local scs=`echo $sc | sed -e "s|${SC_DIR}/||g" `
 		if [ "$?" = 0 ]; then
-			msg "Build: $sc - ok!"
+			touch ${TMP_DIR}/$scs
+			msg "Build: $scs - ok!"
 			rm -rf $BUILD_DIR
 		fi
 	done
 
 	if [ "$?" = 0 ]; then
 		pack "$@"
+		rm -rf ${TMP_DIR}
 		msg "Done - ${DESTDIR}"
 		exit 0
 	else
@@ -136,6 +142,7 @@ main(){
 arch="$(uname -m)"
 
 CWD="${PWD}"
+TMP_DIR="${CWD}/tmp"
 BUILD_DIR="${CWD}/build_dir"
 SRC_DIR="${CWD}/sources"
 SC_DIR="${CWD}/scripts"
