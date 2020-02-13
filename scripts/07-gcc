@@ -32,7 +32,7 @@ build(){
 		--enable-lto \
 		--with-host-libstdcxx=-lstdc++
 
-	make -j$(nproc)
+	make
 	make install
 	make install-strip || true
 }

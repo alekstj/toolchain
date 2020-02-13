@@ -22,6 +22,7 @@ build(){
 		--with-float=soft \
 		--with-arch=${ARCH}
 
-	make all-gcc install-gcc -j$(nproc)
-	make all-target-libgcc install-target-libgcc -j$(nproc)
+	make all-gcc install-gcc 
+	make -j1 all-target-libgcc install-target-libgcc
+	sync
 }

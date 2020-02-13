@@ -12,6 +12,6 @@ build(){
 	../configure --prefix=${CROSS_PREFIX}/${TARGET_TRIP}/ \
 		--enable-optimize CROSS_COMPILE=${TARGET_TRIP}-
 
-	make -j$(nproc)
+	make
 	make install
 }

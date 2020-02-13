@@ -73,22 +73,25 @@ main(){
 
 	# load target
 	if [ -f "${TARG_DIR}/$arch" ]; then
-		msg "Load target: $arch"
 		. "${TARG_DIR}/$arch"
 	else
 		err "Unsupported '$arch' target."
 		exit 1
 	fi
 
-	msg "Target: ${TARGET}"
-	msg "CPU: ${CPU}"
-	msg "Triplet: ${TARGET_TRIP}"
-	printf " \n"
+	local JOBS=$(expr `nproc` + 1)
+	export MAKEFLAGS="-j${JOBS}"
 
-	sleep 3s
-	
+	msg "Target:    ${TARGET}"
+	msg "CPU:       ${CPU}"
+	msg "Triplet:   ${TARGET_TRIP}"
+	msg "MAKEFLAGS: ${MAKEFLAGS}"
+
+	sleep 1s
+
 	# loop
 	for sc in ${SC_DIR}/* ; do
+		printf " \n"
 		msg "Run recepi: $(echo $sc | sed -e "s|${SC_DIR}/||g")"
 		. $sc
 
@@ -106,11 +109,12 @@ main(){
 
 		install -dm755 ${BUILD_DIR}
 		pushd ${BUILD_DIR} >/dev/null
-			msg "Unpack sources: $tarball"
+			msg "Unpack sources: `echo $tarball | sed -e "s|${SRC_DIR}/||g" `"
 			tar -xf $tarball || exit 1
 			sync
 			(set -ex ; build )
 			sync
+			unset MAKEFLAGS
 		popd >/dev/null
 
 		if [ "$?" = 0 ]; then

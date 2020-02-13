@@ -15,6 +15,6 @@ build(){
 		--disable-werror \
 		--disable-multilib
 
-	make -j$(nproc)
+	make
 	make install
 }

@@ -16,6 +16,6 @@ build(){
 		--disable-nls \
 		--enable-languages=c \
 		--disable-multilib
-	make -j$(nproc)
+	make 
 	make install
 }
