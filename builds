@@ -148,7 +148,6 @@ SRC_DIR="${CWD}/sources"
 SC_DIR="${CWD}/scripts"
 CONFILE="${CWD}/config"
 TARG_DIR="${CWD}/targets"
-BIN_DIR="${CWD}/binary"
 
 
 main "$@"
