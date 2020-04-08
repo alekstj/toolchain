@@ -1,5 +1,4 @@
 /sources/*.tar.*
 /sources/*86*
-/sources/*.sh
 /rootdir
 /build_dir
