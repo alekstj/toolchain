@@ -2,3 +2,11 @@ DESTDIR="${PWD}/rootdir"
 NATIVE_PREFIX="${DESTDIR}/native"
 CROSS_PREFIX="${DESTDIR}/cross"
 
+binutils_ver=2.27
+gcc_ver=6.3.0
+linux_ver=4.9.9
+musl_ver=1.1.21
+mpfr_ver=3.1.5
+gmp_ver=6.1.2
+mpc_ver=1.0.3
+

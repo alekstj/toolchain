@@ -3,6 +3,9 @@
 
 ```
 <clone this repo>
-$ cd toolchain
+$ cd toolchain/sources
+$ ./get_src.sh
+
+$ cd ..
 $ ./build -h
 ```

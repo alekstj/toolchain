@@ -1,5 +1,5 @@
 name=musl
-version=1.1.23
+version=${musl_ver}
 
 msg "$name -> $CROSS_PREFIX"
 

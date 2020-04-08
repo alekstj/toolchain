@@ -3,9 +3,10 @@ msg "Copy binaries busybox to toolchain"
 build(){
 	install -Dm755 ${SRC_DIR}/busybox-${TARGET} ${DESTDIR}/bin/busybox
 	pushd ${DESTDIR}
-		mkdir -p sbin usr/bin usr/sbin
-		for l in $(./bin/busybox --list-full) ; do
-			ln -sf /bin/busybox $l
+		mkdir -p ${DESTDIR}/sbin ${DESTDIR}/usr/bin ${DESTDIR}/usr/sbin
+		for app in $(./busybox --list-full) ; do
+			ln -sf busybox $app
 		done
 	popd
+	sync
 }

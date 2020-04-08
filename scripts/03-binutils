@@ -1,5 +1,5 @@
 name=binutils
-version=2.32
+version=${binutils_ver}
 
 msg "$name -> $CROSS_PREFIX"
 

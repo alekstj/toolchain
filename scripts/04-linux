@@ -1,5 +1,5 @@
 name=linux
-version=4.4.186
+version=${linux_ver}
 
 msg "$name -> $CROSS_PREFIX"
 
