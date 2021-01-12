@@ -17,7 +17,7 @@ for src in binutils gcc mpfr mpc gmp musl linux ; do
 		binutils)
 			$EXE https://mirror.yandex.ru/mirrors/gnu/binutils/binutils-${binutils_ver}.tar.bz2 ;;
 		gcc)
-			$EXE https://mirror.yandex.ru/mirrors/gnu/gcc/gcc-${gcc_ver}/gcc-${gcc_ver}.tar.bz2 ;;
+			$EXE https://mirror.yandex.ru/mirrors/gnu/gcc/gcc-${gcc_ver}/gcc-${gcc_ver}.tar.xz ;;
 		mpfr)
 			$EXE https://mirror.yandex.ru/mirrors/gnu/mpfr/mpfr-${mpfr_ver}.tar.bz2 ;;
 		mpc)
