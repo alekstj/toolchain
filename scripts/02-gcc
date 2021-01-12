@@ -7,7 +7,7 @@ build(){
 	cd $name-${version:0}
 
 	tar -xf $SRC_DIR/mpfr-${mpfr_ver}.tar.bz2 && mv mpfr-${mpfr_ver} mpfr
-	tar -xf $SRC_DIR/gmp-${gmp_ver}.tar.bz2 && mv gmp-${gmp_version} gmp
+	tar -xf $SRC_DIR/gmp-${gmp_ver}.tar.bz2 && mv gmp-${gmp_ver} gmp
 	tar -xf $SRC_DIR/mpc-${mpc_ver}.tar.gz && mv mpc-${mpc_ver} mpc	
 
 	mkdir build && cd build

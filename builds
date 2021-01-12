@@ -33,12 +33,11 @@ check(){
 }
 
 clean(){
-	for dir in ${DESTDIR} ${BUILD_DIR} ; do
-		msg "Remove: $dir"
+	for dir in ${DESTDIR} ${BUILD_DIR} ${TMP_DIR} ; do
+		msg "Remove: `basename $dir`"
 		rm -rf $dir
 		sync
 	done
-	rm -rf ${TMP_DIR}
 }
 
 parser(){
@@ -117,7 +116,7 @@ main(){
 			install -dm755 ${CROSS_PREFIX}
 		fi
 
-		install -dm755 ${BUILD_DIR}
+		install -dm755 ${BUILD_DIR} ${TMP_DIR}
 		pushd ${BUILD_DIR} >/dev/null
 			msg "Unpack sources: `echo $tarball | sed -e "s|${SRC_DIR}/||g" `"
 			tar -xf $tarball || exit 1
